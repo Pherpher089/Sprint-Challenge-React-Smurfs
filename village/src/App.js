@@ -17,9 +17,20 @@ class App extends Component {
       .then(res => {console.log(res); this.setState({smurfs: res.data})})
       .catch(err => console.log(err));
   }
-  // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
-  // Notice what your map function is looping over and returning inside of Smurfs.
-  // You'll need to make sure you have the right properties on state and pass them down to props.
+
+
+  //Is this the best way to make sure the state is updated and rerendered?
+  componentDidUpdate(){
+    axios.get('http://localhost:3333/smurfs')
+      .then(res => {
+        if(res !== this.state.smurfs)
+        {
+          this.setState({smurfs: res.data})
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <div className="App">
